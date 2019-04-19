@@ -19868,13 +19868,7 @@ memory usage: 209.2+ KB
 <div class="prompt input_prompt">In&nbsp;[79]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#df_copy.loc[418, &#39;status&#39;] = &#39;doggo &amp; pupper&#39;</span>
-<span class="c1">#df_copy.loc[443, &#39;status&#39;] = &#39;doggo &amp; pupper&#39;</span>
-<span class="c1">#df_copy.loc[564, &#39;status&#39;] = &#39;doggo &amp; pupper&#39;</span>
-<span class="c1">#df_copy.loc[691, &#39;status&#39;] = &#39;doggo &amp; pupper&#39;</span>
-<span class="c1">#df_copy.loc[852, &#39;status&#39;] = &#39;doggo &amp; pupper&#39;</span>
-<span class="c1">#df_copy.loc[901, &#39;status&#39;] = &#39;doggo &amp; pupper&#39;</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">row_index</span><span class="p">)):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">row_index</span><span class="p">)):</span>
     <span class="n">newframe</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_index</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;doggo &amp; pupper&#39;</span>
 </pre></div>
 
@@ -20150,9 +20144,7 @@ Name: status, dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>由于status这样的列，可能一行数据中包含了不只一个值，故将这一列中的多个值进行拆分，形成多行数据<br/>
-虽然这样可能会产生tweet_id的重复项，但是这个拆分后的新数据集，却可以单独用来分析地位相关的聚合统计</p>
-
+<h5 id="&#27492;&#26102;&#65292;&#25105;&#20204;&#24050;&#32463;&#23436;&#25104;&#20102;&#22522;&#26412;&#30340;&#25968;&#25454;&#28165;&#27927;&#65292;&#23558;&#25152;&#26377;&#30340;&#25968;&#25454;&#20445;&#23384;&#33267;twitter_archive_master.csv&#25991;&#20214;&#20869;">&#27492;&#26102;&#65292;&#25105;&#20204;&#24050;&#32463;&#23436;&#25104;&#20102;&#22522;&#26412;&#30340;&#25968;&#25454;&#28165;&#27927;&#65292;&#23558;&#25152;&#26377;&#30340;&#25968;&#25454;&#20445;&#23384;&#33267;twitter_archive_master.csv&#25991;&#20214;&#20869;<a class="anchor-link" href="#&#27492;&#26102;&#65292;&#25105;&#20204;&#24050;&#32463;&#23436;&#25104;&#20102;&#22522;&#26412;&#30340;&#25968;&#25454;&#28165;&#27927;&#65292;&#23558;&#25152;&#26377;&#30340;&#25968;&#25454;&#20445;&#23384;&#33267;twitter_archive_master.csv&#25991;&#20214;&#20869;">&#182;</a></h5>
 </div>
 </div>
 </div>
@@ -20186,13 +20178,6 @@ Name: status, dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h5 id="&#27492;&#26102;&#65292;&#25105;&#20204;&#24050;&#32463;&#23436;&#25104;&#20102;&#22522;&#26412;&#30340;&#25968;&#25454;&#28165;&#27927;&#65292;&#23558;&#25152;&#26377;&#30340;&#25968;&#25454;&#20445;&#23384;&#33267;twitter_archive_master.csv&#25991;&#20214;&#20869;">&#27492;&#26102;&#65292;&#25105;&#20204;&#24050;&#32463;&#23436;&#25104;&#20102;&#22522;&#26412;&#30340;&#25968;&#25454;&#28165;&#27927;&#65292;&#23558;&#25152;&#26377;&#30340;&#25968;&#25454;&#20445;&#23384;&#33267;twitter_archive_master.csv&#25991;&#20214;&#20869;<a class="anchor-link" href="#&#27492;&#26102;&#65292;&#25105;&#20204;&#24050;&#32463;&#23436;&#25104;&#20102;&#22522;&#26412;&#30340;&#25968;&#25454;&#28165;&#27927;&#65292;&#23558;&#25152;&#26377;&#30340;&#25968;&#25454;&#20445;&#23384;&#33267;twitter_archive_master.csv&#25991;&#20214;&#20869;">&#182;</a></h5>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="&#25968;&#25454;&#20998;&#26512;">&#25968;&#25454;&#20998;&#26512;<a class="anchor-link" href="#&#25968;&#25454;&#20998;&#26512;">&#182;</a></h3>
 </div>
 </div>
@@ -20208,7 +20193,7 @@ Name: status, dtype: int64</pre>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ol>
-<li>在一天中的哪个时段，发推文的用户比较多？</li>
+<li>在一天中的哪个时段，该用户发推文比较多？</li>
 <li>哪些种类的狗狗获得了较高的转发数？ </li>
 <li>得到了高评分的狗狗得到的转发数就一定多吗？</li>
 <li>数据中狗狗评分的高低和所处于的地位有什么关系？</li>
@@ -20527,7 +20512,7 @@ Name: hour, dtype: int64</pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>从图中我们可以看出， 凌晨时段和下午傍晚时段， 发推特的用户比较多</p>
+<p>从图中我们可以看出， 凌晨时段和下午傍晚时段， 该用户发推特比较多</p>
 
 </div>
 </div>
@@ -22946,7 +22931,7 @@ Name: status, dtype: int64</pre>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ol>
-<li>在一天中的哪个时段，发推文的用户比较多？<br>
+<li>在一天中的哪个时段，该用户发推文比较多？<br>
  凌晨时段和下午傍晚时段。</li>
 </ol>
 

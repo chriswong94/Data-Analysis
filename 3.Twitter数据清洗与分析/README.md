@@ -56,7 +56,7 @@ WeRateDogs下载了他们的推特档案，并通过电子邮件发送给优达�
 
 
 
-### 软件的安装
+### 软件包的安装
 - pandas
 - numpy
 - matplotlib
