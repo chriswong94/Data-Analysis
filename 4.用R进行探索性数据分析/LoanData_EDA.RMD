@@ -1,37 +1,213 @@
-Prosper贷款数据分析
+贷款数据分析
 ========================================================
+
+# 项目背景及目的
+
+Prosper是美国的一家P2P在线借贷平台网站。网站撮合了一些有闲钱的人和一些急于用钱的人。用户若有贷款需求，可在网站上列出期望数额和可承受的最大利率。潜在贷方则为数额和利率展开竞价。卖家可以获得比银行更高的利息收入，而对于买家来说，除了过程快捷便利和可以获得较低的还款利率外，更主要的是你不需要经过漫长的审查过程，不会遇到在银行申请贷款遭拒时的尴尬。本案例试图从EDA分析角度出发，分析Propser数据集中贷款人条件及贷款利率等问题。
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, packages}
 # 加载你最终使用的所有组件在这个代码块的分析中。
 # 参数 "echo" 设为假, 这可以避免代码混入 HTML 输出显示。
-
-
 library(ggplot2)
 ```
 
-```{r echo=FALSE, Load_the_Data}
-# 加载数据
-load_data <- read.csv('prosperLoanData.csv')
-```
 
-# 单变量绘图选择
+### 单变量绘图选择
 ```{r echo=FALSE, Univariate_Plots}
 
+# 加载数据
+load_data <- read.csv('prosperLoanData.csv')
+
+# 查看数据
+#str(load_data)
+#names(load_data)
+#dim(load_data)
+
+unique(load_data$Term)
+table(load_data$ProsperRating..Alpha.)
+table(load_data$EmploymentStatus)
+table(load_data$ListingCategory..numeric.)
 ```
+
+
+```{r}
+# 处理数据
+
+#factor 用于处理离散值
+load_data$Term <- factor(load_data$Term)
+
+
+load_data$ProsperRating..Alpha. <- ordered(load_data$ProsperRating..Alpha.,
+                                          c(NA,"HR","E","D","C","B","A","AA"))
+
+
+load_data$EmploymentStatus <- ordered(load_data$EmploymentStatus, c(NA, 
+                                                                    'Employed',
+                                                                    'Full-time',
+                                                                    'Not available',
+                                                                    'Not employed',
+                                                                    'Other',
+                                                                    'Part-time',
+                                                                    'Retired',
+                                                                    'Self-employed'))
+
+
+load_data$IncomeRange <- ordered(load_data$IncomeRange, 
+                                 c("$0","$1-24,999", "$25,000-49,999", 
+                                   "$50,000-74,999","$75,000-99,999", "$100,000+", 
+                                   "Not displayed", "Not employed"),
+                                 labels=c("$0" , "$1-24k", "$25k-49k", 
+                                          "$50k-75k", "$75k-100k" , "$100k+",
+                                          "Not displayed", "Not employed"))
+
+
+load_data$ListingCategory..numeric.<- factor(
+  load_data$ListingCategory..numeric.,
+  labels=c(NA,'Debt Consolidation','Home Improvement','Business','Personal Loan',
+           'Student Use', 'Auto', 'Other','Baby&Adoption','Boat', 'Cosmetic Procedure', 
+           'Engagement Ring','Green Loans', 'Household Expenses', 'Large Purchases',
+           'Medical/Dental', 'Motorcycle', 'RV', 'Taxes', 'Vacation', 'Wedding Loans'), ordered = TRUE)
+
+
+
+```
+
+
+
+
+
+#### 贷款期限
+
+```{r echo=FALSE}
+ggplot(aes(x = Term), data = load_data) +
+  geom_bar() +
+  ggtitle('Count of Borrower Rate')
+```
+
+观察图我们可以发现，大部分贷款年限为3年
+
+
+
+#### 贷款利率
+
+```{r echo=FALSE}
+ggplot(aes(x = BorrowerAPR), data = load_data) +
+  geom_histogram(binwidth = 0.02) +
+  scale_x_continuous(limits = c(0, 0.45), breaks = seq(0, 0.42, 0.02)) + 
+  ggtitle('Count of Borrower Rate')
+```
+我们可以看到，整体贷款利率的数据大致接近正态分布。
+
+
+
+
+#### 贷方收益率
+
+```{r echo=FALSE}
+summary(load_data$LenderYield)
+```
+```{r echo=FALSE}
+ggplot(aes(x = LenderYield*100), data = load_data) +
+  geom_histogram(binwidth = 1) +
+  scale_x_continuous(breaks = seq(-2,38, 2)) + 
+  ggtitle('Count of Lender Yield')
+```
+
+```{r}
+ggplot(data=load_data,aes(x=LenderYield*100,y=..density..))+
+  geom_line(stat = 'density')+
+  scale_x_continuous(breaks = seq(-2,50,2))
+```
+
+
+我们用lenderyield乘100来看收益率百分比数，贷款人收益在15%左右，有正态分布的趋势，大部分收益利率相对于银行传统储蓄率较高。而且有负利率的情况出现，需要得到投资人的注意。
+
+
+#### 借款人就业情况
+
+```{r echo=FALSE}
+ggplot(aes(x = EmploymentStatus), data = load_data) +
+  geom_bar() +
+  ggtitle('Distribution of Employment status')
+```
+
+我们可以看到，大部分申请贷款的人员都属于在职员工。
+
+
+
+#### 对借款人的评级
+
+```{r}
+ggplot(data = load_data, aes(x = ProsperRating..Alpha.)) +
+  geom_bar()
+```
+
+我们看数据分布大致呈现正态分布， 信用评级为C的人比较多。
+
+
+
+#### 借款人所在地
+
+```{r}
+ggplot(aes(x = BorrowerState), data = load_data) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90)) +
+  ggtitle('Distribution of Borrower location')
+```
+
+我们看到加州的贷款人数量最多。
+
+
+#### 借款人收入范围
+
+```{r}
+table(load_data$IncomeRange)
+```
+
+
+```{r echo=FALSE}
+ggplot(aes(x = IncomeRange), data = load_data) +
+  geom_bar() +
+  ggtitle('Distribution of Income Range')
+```
+
+我们可以看到大部分借款人收入在25000-75000之间， 其次高收入人群的比例很高。
+
+
+#### 贷款的类别
+
+```{r}
+#axis.title.x=element_text(size=10,face="bold",color="blue",hjust=0.5)
+ggplot(data = load_data, aes(x = ListingCategory..numeric.)) +
+  geom_bar() +
+  theme(axis.text.x=element_text(angle = 90))
+  
+```
+
+可以看到因为债务合并而贷款的最多，其次是其他，家庭和商业原因也是比较多的理由。
+
 
 # 单变量分析
 
 ### 你的数据集结构是什么？
-
+    在单变量分析的过程中，我选用了8个变量。Term, BorrowerAPR, LenderYield, EmploymentStatus, IncomeRange, ListingCategory..numeric., BorrowerState, ProsperRating..Alpha.
+    
 ### 你的数据集内感兴趣的主要特性有哪些？
-
+    选取的变量主要研究了贷款人的基本工作以及财务，信用情况， 贷款年限，利率及收益，用途。    
+    收益率和贷款利率可以作为衡量贷款好坏的一个重要标准
+    
 ### 你认为数据集内哪些其他特征可以帮助你探索兴趣特点？
-
+    “DelinquenciesLast7Years”过去7年违约次数、“StatedMonthlyIncome”借款人月收入可以帮助我探索、“Investors贷款投资人数”可以帮助我探索。没有创建新变量
+    
 ### 根据数据集内已有变量，你是否创建了任何新变量？
-
+    没有创建新变量。
+    
 ### 在已经探究的特性中，是否存在任何异常分布？你是否对数据进行一些操作，如清洁、调整或改变数据的形式？如果是，你为什么会这样做？
-
-
+    变量的缺失值比较多。
+    因为贷款期限数据只有3种情况，将数据类型改为Factor
+    对借款人的评级，对缺失的数据标记了NA
+    借款人的是否被雇佣情况也对缺失数据标注了NA
+    把借款用途的数字标记改为文字，在可视化时得到了更好的效果
 
 # 双变量绘图选择
 ```{r echo=FALSE, Bivariate_Plots}
