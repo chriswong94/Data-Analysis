@@ -279,7 +279,8 @@ by(load_data$LenderYield, load_data$IncomeRange, summary)
 #### 贷款利率，收益与借款人评级的关系
 
 ```{r echo=FALSE}
-ggplot(data = subset(load_data, !is.na(ProsperRating..Alpha.)), aes(x = ProsperRating..Alpha., y= BorrowerRate)) +
+ggplot(data = subset(load_data, !is.na(ProsperRating..Alpha.)), 
+       aes(x = ProsperRating..Alpha., y= BorrowerRate)) +
   geom_boxplot() +
   ggtitle('ProsperRating..Alpha. vs BorrowerRate') +
   theme(plot.title = element_text(hjust = 0.5))
@@ -292,7 +293,8 @@ by(load_data$BorrowerRate, load_data$ProsperRating..Alpha., summary)
 我们可以看到明显的趋势，信用等级越高的人，贷款利率相对越低。
 
 ```{r echo=FALSE}
-ggplot(data = subset(load_data, !is.na(ProsperRating..Alpha.)), aes(x = ProsperRating..Alpha.,y= LenderYield))+
+ggplot(data = subset(load_data, !is.na(ProsperRating..Alpha.)), 
+       aes(x = ProsperRating..Alpha.,y= LenderYield))+
   geom_boxplot() +
   ggtitle('ProsperRating..Alpha. vs LenderYield') +
   theme(plot.title = element_text(hjust = 0.5))
@@ -440,10 +442,14 @@ ggplot(aes(x=DelinquenciesLast7Years,y=LoanOriginalAmount, color=ProsperRating..
 
 # 反思
 
-1.贷款数据集包含了太多数据，而且每项贷款有81个变量。可供选择的变量太多了，并且因为没有接触过相关业务，导致对数据理解很差，不知道应该选用哪些数据。选用的可视化方法也相应较少，应该加强对相关资料的检索与练习。
+贷款数据集包含了太多数据，而且每项贷款有81个变量。可供选择的变量太多了，并且因为没有接触过相关业务，导致不知道应该选用哪些数据，也未能创建更多的变量，在以后应该多读一些相关领域的报告。通过上网查询以及了解数据集中的各个变量，我研究了一些变量与贷款额,利率,收益，贷款人信用之间的关系。  
 
-2.统计学知识比较薄弱，没有建立相关模型的概念，在后续的时间应该加强学习。
+因为之前使用python多一些，因而对于r语言不是很熟练，遇到了很多问题，在网络检索中花费了不少的时间，但是也收益很多。
 
-3.之前熟系python清洗数据的方法，在项目开头也相应的用R处理了一些变量。
+借款人信用等级、借款人收入、过去7年的违约次数与贷款额之间有明显的趋势，借款人信用等级、借款人收入、贷款状态与利率之间有明显的趋势。应该学习并结合其他的模型，加强对变量关系之间的研究。
+
+经过研究发现，借款人要想贷到数额多且利率低的贷款，应该提高自身信用等级、收入，同时最好贷三年或五年期贷款。这与我们的业务知识相一致，我们都知道借款年化利息是根据风险评级的高低定的，而风险评级又是根据风险评分定的。
+
+
 
 
