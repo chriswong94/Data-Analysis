@@ -14,7 +14,7 @@
 
 #### 第一步 - 选择数据集
 
-首先，我从[**数据集选项**](https://github.com/udacity/new-dand-advanced-china/blob/master/Tableau%20%E5%8F%AF%E8%A7%86%E5%8C%96/%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%20Tableau%20%E5%8F%AF%E8%A7%86%E5%8C%96%E6%95%85%E4%BA%8B.md) 文档中选择了P2P平台prosper的数据集。
+首先，我从[**数据集选项**](https://github.com/udacity/new-dand-advanced-china/blob/master/Tableau%20%E5%8F%AF%E8%A7%86%E5%8C%96/%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%20Tableau%20%E5%8F%AF%E8%A7%86%E5%8C%96%E6%95%85%E4%BA%8B.md) 文档中选择了P2P平台prosper的数据集,该数据集包括113937项贷款，每项贷款含81个变量，包括贷款金额、借款利率、贷款现状、借款人收入等。
 
 #### 第二步 - 组织数据
 
